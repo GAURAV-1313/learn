@@ -43,7 +43,6 @@
     "build": "node scripts/clean.mjs && tsc -p tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepare": "npm run build",
     "prepack": "npm run build",
     "postinstall": "node ./dist/install-skill.js --global-only"
   },
