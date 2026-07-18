@@ -25,7 +25,7 @@ Install once from GitHub to add the `learn` skill to your local Codex skills
 directory:
 
 ```bash
-npm install -g github:GAURAV-1313/learn
+npm install -g https://github.com/GAURAV-1313/learn/archive/refs/heads/main.tar.gz
 ```
 
 Restart Codex or open a new task so it reloads the installed skill. This package

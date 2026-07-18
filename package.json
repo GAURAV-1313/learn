@@ -1,6 +1,6 @@
 {
   "name": "@gaurav-1313/learn",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "license": "MIT",
   "type": "module",
   "description": "Implementation-grounded adaptive learning sessions for coding agents.",
@@ -43,7 +43,6 @@
     "build": "node scripts/clean.mjs && tsc -p tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepare": "npm run build",
     "prepack": "npm run build",
     "postinstall": "node ./dist/install-skill.js --global-only"
   },
