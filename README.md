@@ -13,9 +13,11 @@ collect minimal context → recommend → confidence → lesson → one check-in
                                               └── reinforce / advance
 ```
 
-It does not throw a fixed quiz at the user. A wrong answer produces targeted
-reinforcement and a fresh equivalent check-in; a correct answer unlocks the
-next prerequisite-ready learning step.
+It does not throw a fixed quiz at the user. A normal session covers 2–4 related
+concepts, using two checks per concept: a real-world-to-technical mapping and a
+technical application or tradeoff question. A wrong answer produces targeted
+reinforcement and a fresh equivalent check-in; correct answers unlock the next
+prerequisite-ready learning step.
 
 ## Install
 

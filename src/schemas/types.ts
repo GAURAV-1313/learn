@@ -174,6 +174,7 @@ export interface Session {
   plan?: LearningPlan;
   confidence?: ConfidenceLevel;
   currentUnitIndex: number;
+  completedChecksForCurrentUnit: number;
   correctAnswers: number;
   incorrectAnswers: number;
   currentQuestion?: Question;

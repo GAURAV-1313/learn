@@ -42,20 +42,30 @@ If the developer skips or cancels, stop without teaching.
 
 ## Adaptive session
 
-1. Build a small dependency-aware learning path (normally 2–4 concepts). Keep
-   technologies, concepts, patterns, anti-patterns, architecture decisions, and
-   misconceptions distinct.
+1. Build a small dependency-aware learning path of 2–4 concepts when the
+   implementation has enough material. Keep technologies, concepts, patterns,
+   anti-patterns, architecture decisions, and misconceptions distinct. Do not
+   reduce a multi-concept implementation to one vocabulary question.
 2. Ask confidence for the first prerequisite-ready concept: Expert, Comfortable,
    Heard Of It, or Never Learned. Adapt depth, but do not skip a needed
    prerequisite merely because the developer is confident.
 3. Teach exactly one small, implementation-grounded concept. Explain what it
    is, why this code needed it, what breaks without it, its surrounding
-   connection, a misconception, and a concise mental model.
-4. Ask exactly one implementation-specific reasoning MCQ. Do not ask generic
-   definitions and never batch questions.
+   connection, a misconception, and a concise mental model. Include one
+   accurate real-world mapping whenever it clarifies the mechanism, explicitly
+   mapping each part of the analogy back to the code. Never let an analogy
+   replace the technical explanation.
+4. Ask two distinct implementation-specific checks for each concept, delivered
+   one at a time: first a real-world-to-technical mapping question, then a
+   technical application, dependency, tradeoff, or debugging question. Do not
+   ask generic definitions and never batch questions.
 5. Branch immediately:
-   - Correct and confident: advance or explore the next design tradeoff.
-   - Correct but uncertain: reinforce the mental model briefly.
+   - Correct on the first check: ask the second, more technical check for that
+     same concept.
+   - Correct and confident on both checks: advance or explore the next design
+     tradeoff.
+   - Correct but uncertain: reinforce the mental model briefly, then ask the
+     remaining check.
    - Incorrect: name the specific reasoning gap, teach it using this
      implementation, then ask a new isomorphic question.
    - Enough evidence for the objective or time limit: finish.

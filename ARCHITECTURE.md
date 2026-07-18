@@ -346,10 +346,13 @@ the implementation.
 Questions are MCQ-only for MVP and must be implementation-aware. They are
 **single check-ins**, introduced immediately after enough teaching to make a
 reasoning judgment meaningful—not queued and thrown at the developer together.
-Distractors represent plausible misconceptions, and each choice has an
-explanation. The evaluator uses the answer, confidence, and observed evidence
-to select the next learning move: `advance`, `deepen`, `reinforce`, `retry`, or
-`finish`. A correct answer may unlock a related design tradeoff; uncertainty may
+For each concept unit, use two complementary checks: a real-world scenario
+mapped explicitly back to the implementation mechanism, followed by a technical
+application, dependency, tradeoff, or debugging question. Distractors represent
+plausible misconceptions, and each choice has an explanation. The evaluator
+uses the answer, confidence, and observed evidence to select the next learning
+move: `advance`, `deepen`, `reinforce`, `retry`, or `finish`. A correct first
+answer advances to the technical check for the same concept; uncertainty may
 lead to a simpler mental model; an incorrect response first teaches the
 diagnosed gap and only then asks a new isomorphic question. The system stops
 asking questions once it has enough evidence for the session objective; it does

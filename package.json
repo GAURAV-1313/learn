@@ -1,6 +1,6 @@
 {
   "name": "@gaurav-1313/learn",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "type": "module",
   "description": "Implementation-grounded adaptive learning sessions for coding agents.",

@@ -38,6 +38,21 @@ describe("learn runtime", () => {
     expect(types.filter((type) => type === "QUESTION_PRESENTED")).toHaveLength(2);
   });
 
+  it("asks a mapping check and technical check before advancing a concept", async () => {
+    const runtime = learn(implementation);
+    const session = await runtime.start(implementation);
+    runtime.decide(session, true);
+    await runtime.setConfidence(session, "comfortable");
+    const firstQuestion = session.currentQuestion!;
+
+    await runtime.answer(session, firstQuestion.correctChoiceId);
+
+    expect(session.state).toBe("quiz");
+    expect(session.currentUnitIndex).toBe(0);
+    expect(session.currentQuestion?.id).toBe("unit-authentication-check-2");
+    expect(session.currentQuestion?.prompt).toContain("before dependent behavior runs");
+  });
+
   it("finishes with a bounded summary after the final correct check-in", async () => {
     const runtime = learn(implementation);
     const session = await runtime.start(implementation);

@@ -27,7 +27,7 @@ export class LearnRuntime {
 
   async start(implementation: ImplementationLocator): Promise<Session> {
     assertImplementation(implementation);
-    const session: Session = { id: newId(), state: "idle", implementation, concepts: [], currentUnitIndex: 0, correctAnswers: 0, incorrectAnswers: 0 };
+    const session: Session = { id: newId(), state: "idle", implementation, concepts: [], currentUnitIndex: 0, completedChecksForCurrentUnit: 0, correctAnswers: 0, incorrectAnswers: 0 };
     this.emit(session, "SESSION_STARTED", { invocation: "manual" });
     const context = await this.workers.contextCollector.collect();
     session.context = context;
@@ -68,11 +68,18 @@ export class LearnRuntime {
     if (!evaluation.correct) {
       session.incorrectAnswers += 1;
       this.emit(session, "REINFORCEMENT_READY", { feedback: evaluation.feedback, unitId: question.unitId });
-      await this.presentCurrentLearningStep(session, 2);
+      await this.presentCurrentLearningStep(session, session.completedChecksForCurrentUnit + 1);
       return session;
     }
     session.correctAnswers += 1;
+    session.completedChecksForCurrentUnit += 1;
+    if (session.completedChecksForCurrentUnit < 2) {
+      session.state = "teaching";
+      await this.presentCurrentLearningStep(session, session.completedChecksForCurrentUnit + 1);
+      return session;
+    }
     session.currentUnitIndex += 1;
+    session.completedChecksForCurrentUnit = 0;
     if (!session.plan || session.currentUnitIndex >= session.plan.units.length) {
       const summary = this.summarize(session);
       session.summary = summary;

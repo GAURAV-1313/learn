@@ -73,17 +73,20 @@ export class GroundedTeachingEngine {
 export class ReasoningQuizEngine {
     async question(unitId, lesson, attempt) {
         const correct = "causal";
+        const mappingCheck = attempt === 1;
         return {
             id: `${unitId}-check-${attempt}`, unitId,
-            prompt: `In this implementation, why is ${lesson.title.toLowerCase()} needed?`,
+            prompt: mappingCheck
+                ? `Think of ${lesson.title.toLowerCase()} as a checkpoint before a controlled area. In this implementation, what does that checkpoint represent?`
+                : `In this implementation, why is ${lesson.title.toLowerCase()} needed before dependent behavior runs?`,
             choices: [
-                { id: correct, text: "It establishes a needed constraint or decision before the dependent behavior runs." },
-                { id: "cosmetic", text: "It mainly makes the implementation shorter, without affecting behavior." },
-                { id: "unrelated", text: "It is independent of the implementation and can be removed safely." }
+                { id: correct, text: mappingCheck ? "A technical boundary that establishes a constraint or trusted state before later behavior." : "It establishes a needed constraint or decision before the dependent behavior runs." },
+                { id: "cosmetic", text: mappingCheck ? "A cosmetic sign that does not change who may enter or what happens next." : "It mainly makes the implementation shorter, without affecting behavior." },
+                { id: "unrelated", text: mappingCheck ? "A separate building with no relationship to the controlled area." : "It is independent of the implementation and can be removed safely." }
             ],
             correctChoiceId: correct,
             rationales: {
-                causal: "Correct: the concept exists to satisfy a dependency or behavioral constraint in this change.",
+                causal: mappingCheck ? "Correct: the real-world checkpoint maps to the technical boundary that establishes needed state or constraints." : "Correct: the concept exists to satisfy a dependency or behavioral constraint in this change.",
                 cosmetic: "Not quite: the important reason is behavioral and architectural, not cosmetic.",
                 unrelated: "Not quite: this concept is connected to the implementation's behavior and constraints."
             }
