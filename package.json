@@ -1,6 +1,6 @@
 {
-  "name": "@gaurav-1313/learn",
-  "version": "0.1.6",
+  "name": "codecall",
+  "version": "1.0.0",
   "license": "MIT",
   "type": "module",
   "description": "Implementation-grounded adaptive learning skills for Codex and Claude Code.",
@@ -13,12 +13,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GAURAV-1313/learn.git"
+    "url": "git+https://github.com/GAURAV-1313/codecall.git"
   },
   "bugs": {
-    "url": "https://github.com/GAURAV-1313/learn/issues"
+    "url": "https://github.com/GAURAV-1313/codecall/issues"
   },
-  "homepage": "https://github.com/GAURAV-1313/learn#readme",
+  "homepage": "https://github.com/GAURAV-1313/codecall#readme",
   "engines": {
     "node": ">=20"
   },
@@ -38,7 +38,7 @@
     }
   },
   "bin": {
-    "learn": "./dist/cli.js"
+    "codecall": "./dist/cli.js"
   },
   "scripts": {
     "build": "node scripts/clean.mjs && tsc -p tsconfig.json",

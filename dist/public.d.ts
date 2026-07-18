@@ -5,7 +5,7 @@ import { LearnRuntime } from "./runtime/orchestrator.js";
  * Local demonstration runtime. The production experience is the agent-backed
  * Codex skill, which uses the active coding agent's reasoning directly.
  */
-export declare function learn(implementation: ImplementationLocator): LearnRuntime;
+export declare function codecall(implementation: ImplementationLocator): LearnRuntime;
 export * from "./schemas/types.js";
 export * from "./policy/opportunity.js";
 export * from "./runtime/orchestrator.js";

@@ -1,14 +1,14 @@
 ---
-name: learn
-description: Start an adaptive, implementation-grounded learning session after completed code changes. Use automatically when a coding agent finishes a meaningful implementation that introduces concepts, architecture decisions, patterns, or dependencies; also use when the user says /learn or $learn, asks to understand code just implemented, wants a quiz about their implementation, or asks to turn a completed task into a learning session. Always present Start Learning / Skip before teaching.
+name: codecall
+description: Start an adaptive, implementation-grounded learning session after completed code changes. Use automatically when a coding agent finishes a meaningful implementation that introduces concepts, architecture decisions, patterns, or dependencies; also use when the user says /codecall or $codecall, asks to understand code just implemented, wants a quiz about their implementation, or asks to turn a completed task into a learning session. Always present Start Learning / Skip before teaching.
 ---
 
-# Learn
+# Codecall
 
 Use the active coding agent and its current conversation as the learning
 runtime. Do not call an external model, request an API key, or run a separate
-learning CLI. In Codex, invoke this skill as `$learn`; in Claude Code, invoke
-it as `/learn`.
+learning CLI. In Codex, invoke this skill as `$codecall`; in Claude Code, invoke
+it as `/codecall`.
 
 ## Completion handoff
 
@@ -23,12 +23,12 @@ not treat skill metadata as a background scheduler.
 Before deciding whether to show a post-implementation card, read
 [references/trigger-policy.md](references/trigger-policy.md). Apply it only to
 completed implementations with inspectable task, conversation, or changed-file
-evidence. A manual `$learn` or `/learn` request always starts this skill's
+evidence. A manual `$codecall` or `/codecall` request always starts this skill's
 normal Start/Skip flow regardless of the automatic policy.
 
 Use the matching standing-instruction template when configuring a project:
-[references/AGENTS.learn.md](references/AGENTS.learn.md) for Codex or
-[references/CLAUDE.learn.md](references/CLAUDE.learn.md) for Claude Code.
+[references/AGENTS.codecall.md](references/AGENTS.codecall.md) for Codex or
+[references/CLAUDE.codecall.md](references/CLAUDE.codecall.md) for Claude Code.
 
 ## Start gate
 

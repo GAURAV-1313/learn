@@ -1,6 +1,6 @@
-# learn
+# codecall
 
-`learn` is an agent-backed skill for Codex and Claude Code that turns a
+`codecall` is an agent-backed skill for Codex and Claude Code that turns a
 completed implementation into a short, evidence-grounded, adaptive learning
 session. It uses the active coding agent that already understands the task and
 repository—there is no additional model call or external context upload.
@@ -21,11 +21,11 @@ prerequisite-ready learning step.
 
 ## Install
 
-Install once from GitHub to add the same `learn` skill to both your local Codex
+Install once from GitHub to add the same `codecall` skill to both your local Codex
 and Claude Code skills directories:
 
 ```bash
-npm install -g https://github.com/GAURAV-1313/learn/archive/refs/heads/main.tar.gz
+npm install -g https://github.com/GAURAV-1313/codecall/archive/refs/heads/main.tar.gz
 ```
 
 Restart the relevant coding agent or open a new task so it reloads the installed
@@ -35,7 +35,7 @@ does not upload your code.
 When the package is published to npm, the equivalent registry command will be:
 
 ```bash
-npm install -g @gaurav-1313/learn
+npm install -g codecall
 ```
 
 ## Use it in Codex
@@ -43,7 +43,7 @@ npm install -g @gaurav-1313/learn
 After Codex completes an implementation, invoke:
 
 ```text
-$learn
+$codecall
 ```
 
 The skill uses the existing conversation and the coding agent's recent edits.
@@ -63,11 +63,11 @@ The installable skill source is in [`skill/`](skill/SKILL.md).
 After Claude Code completes an implementation, invoke:
 
 ```text
-/learn
+/codecall
 ```
 
 Claude Code discovers personal skills from `~/.claude/skills/<skill-name>/SKILL.md`.
-The installer creates `~/.claude/skills/learn/SKILL.md`, using the same
+The installer creates `~/.claude/skills/codecall/SKILL.md`, using the same
 Agent-Skills-standard instruction file as Codex. It uses Claude Code's current
 conversation and edits—there is no extra learning-model API to configure.
 
@@ -77,7 +77,7 @@ rule below to `CLAUDE.md` rather than `AGENTS.md`.
 ### Automatic recommendation
 
 Codex and Claude Code can select the skill implicitly, but skills are not
-background event listeners. `$learn` (Codex) and `/learn` (Claude Code) are the
+background event listeners. `$codecall` (Codex) and `/codecall` (Claude Code) are the
 dependable triggers in any repository.
 
 The policy is intentionally selective: it recommends only when an implementation
@@ -87,13 +87,13 @@ pattern plus operational behavior). It skips cosmetic, documentation-only,
 mechanical, generated-only, dependency-only, and ordinary test-only work. The
 full policy is [installed with the skill](skill/references/trigger-policy.md).
 
-To enable it in a project, copy the [Codex template](skill/references/AGENTS.learn.md)
-into `AGENTS.md` or the [Claude Code template](skill/references/CLAUDE.learn.md)
+To enable it in a project, copy the [Codex template](skill/references/AGENTS.codecall.md)
+into `AGENTS.md` or the [Claude Code template](skill/references/CLAUDE.codecall.md)
 into `CLAUDE.md`:
 
 ```md
 Before the normal final response for a completed implementation, read the
-learn skill's references/trigger-policy.md and evaluate the change. Show Start
+codecall skill's references/trigger-policy.md and evaluate the change. Show Start
 Learning / Skip only for a `recommend` outcome; never teach without Start.
 ```
 
@@ -104,17 +104,17 @@ or projects.
 ## Local demonstration runtime
 
 ```bash
-learn --from-git --task "Add OAuth protected routes"
+codecall --from-git --task "Add OAuth protected routes"
 ```
 
 The terminal command is a local, deterministic demonstration runtime. Use
-`$learn` in Codex for the primary agent-backed product experience. Use
-`learn --help` for command options.
+`$codecall` in Codex for the primary agent-backed product experience. Use
+`codecall --help` for command options.
 
 ## Use it programmatically
 
 ```ts
-import { learn } from "@gaurav-1313/learn";
+import { codecall } from "codecall";
 
 const implementation = {
   task: "Protect account routes using JWT authentication middleware.",
@@ -124,7 +124,7 @@ const implementation = {
   }]
 };
 
-const runtime = learn(implementation);
+const runtime = codecall(implementation);
 const session = await runtime.start(implementation);
 
 runtime.decide(session, true);                 // developer chose Start Learning
@@ -134,11 +134,11 @@ await runtime.setConfidence(session, "heard_of_it");
 await runtime.answer(session, "causal");
 ```
 
-Providers render `runtime.history(session.id)` as their native UI: `/learn`, a
+Providers render `runtime.history(session.id)` as their native UI: `/codecall`, a
 tool call, or a non-blocking post-task recommendation. Core workers never
 depend on a provider SDK.
 
-## What ships in v0.1.6
+## What ships in v1.0.0
 
 - append-only, typed session events and an explicit state machine;
 - progressive minimal context represented as evidence references;

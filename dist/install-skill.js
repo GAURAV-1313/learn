@@ -1,4 +1,4 @@
-import { cpSync, existsSync, mkdirSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, rmSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,8 +11,11 @@ function copySkill(destinationRoot) {
     if (!existsSync(source))
         throw new Error(`Packaged skill source was not found: ${source}`);
     mkdirSync(destinationRoot, { recursive: true });
-    const destination = join(destinationRoot, "learn");
+    const destination = join(destinationRoot, "codecall");
     cpSync(source, destination, { recursive: true, force: true });
+    const legacySkill = join(destinationRoot, "learn");
+    if (existsSync(legacySkill))
+        rmSync(legacySkill, { recursive: true, force: true });
     return destination;
 }
 /** Copy the packaged skill into Codex's discoverable skill directory. */
@@ -32,6 +35,6 @@ if (invokedAsScript) {
         console.log(`Installed Claude Code skill at ${installClaudeSkill()}`);
     }
     catch (error) {
-        console.warn(`Could not install the learn skill: ${error instanceof Error ? error.message : String(error)}`);
+        console.warn(`Could not install the codecall skill: ${error instanceof Error ? error.message : String(error)}`);
     }
 }

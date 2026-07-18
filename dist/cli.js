@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { createInterface } from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { learn } from "./public.js";
+import { codecall } from "./public.js";
 function parseArguments(values) {
     const parsed = { fromGit: false, help: false };
     for (let index = 0; index < values.length; index += 1) {
@@ -19,11 +19,11 @@ function parseArguments(values) {
     return parsed;
 }
 function help() {
-    console.log(`Usage: learn --task "Describe the implementation" [--from-git]
+    console.log(`Usage: codecall --task "Describe the implementation" [--from-git]
 
 Starts an adaptive learning session. --from-git adds changed-file summaries and
 small excerpts from the current working tree. For the full agent-backed
-experience, invoke $learn in Codex after completing an implementation.`);
+experience, invoke $codecall in Codex after completing an implementation.`);
 }
 function changedFilesFromGit() {
     const options = { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] };
@@ -62,7 +62,7 @@ async function main() {
     try {
         const task = args.task ?? await rl.question("What implementation did you complete? ");
         const implementation = { task, changedFiles: args.fromGit ? changedFilesFromGit() : [] };
-        const runtime = learn(implementation);
+        const runtime = codecall(implementation);
         const session = await runtime.start(implementation);
         const opportunity = session.opportunity;
         console.log(`\nLearning opportunity: ${opportunity.recommendation} · ${opportunity.estimatedMinutes} minutes\n${opportunity.reasoning.join(" ")}`);

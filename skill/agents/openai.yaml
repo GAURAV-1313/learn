@@ -1,6 +1,4 @@
 interface:
-  display_name: "Learn"
+  display_name: "Codecall"
   short_description: "Adaptive implementation learning sessions"
-  default_prompt: "Use $learn to teach me the implementation I just completed."
-policy:
-  allow_implicit_invocation: true
+  default_prompt: "Use $codecall to teach me the implementation I just completed."

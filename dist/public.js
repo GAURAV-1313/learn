@@ -6,7 +6,7 @@ import { DefaultContextCollector, DependencyLearningPlanner, DeterministicEvalua
  * Local demonstration runtime. The production experience is the agent-backed
  * Codex skill, which uses the active coding agent's reasoning directly.
  */
-export function learn(implementation) {
+export function codecall(implementation) {
     return new LearnRuntime({
         contextCollector: new DefaultContextCollector(contextFromImplementation(implementation)),
         opportunityDetector: new HeuristicOpportunityDetector(),

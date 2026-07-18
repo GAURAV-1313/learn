@@ -1,8 +1,8 @@
-# `learn` MVP architecture proposal
+# `codecall` MVP architecture proposal
 
 ## 1. Purpose and product boundary
 
-`learn` is an agent-native capability invoked after an implementation. It turns
+`codecall` is an agent-native capability invoked after an implementation. It turns
 evidence from that implementation into a short, adaptive learning session. It
 does **not** generate generic documentation, replay a commit, or interrupt a
 developer without consent.
@@ -10,10 +10,10 @@ developer without consent.
 The MVP has one public entry point:
 
 ```text
-learn()
+codecall()
 ```
 
-Provider adapters may expose it as `/learn`, a tool call, or an agent-suggested
+Provider adapters may expose it as `/codecall`, a tool call, or an agent-suggested
 card, but the domain runtime is provider-neutral. A recommendation is an
 optional `LearningOpportunity`; it never starts a session itself.
 
@@ -51,7 +51,7 @@ purpose, scope, budget, result, and whether it was denied or unavailable.
 
 ```mermaid
 flowchart TD
-  P[Provider adapter: Codex / Claude Code / future] --> API[learn public API]
+  P[Provider adapter: Codex / Claude Code / future] --> API[codecall public API]
   API --> O[Session orchestrator]
   O <--> S[Event store + reducer]
   O --> C[Context collector]
@@ -108,7 +108,7 @@ sequenceDiagram
   participant O as Orchestrator
   participant W as Workers
   participant DS as Documentation provider
-  U->>A: /learn or Start Learning
+  U->>A: /codecall or Start Learning
   A->>O: start(implementation locator)
   O-->>A: SESSION_STARTED
   O->>W: collect minimal context
@@ -329,7 +329,7 @@ concept fingerprint. A runtime-local set suppresses repeated evaluation of the
 same fingerprint; no learner history is persisted across sessions or projects.
 
 Only `recommend` renders a non-blocking Start/Skip card. `optional` and `skip`
-leave manual `/learn` or `$learn` available. No outcome starts teaching without
+leave manual `/codecall` or `$codecall` available. No outcome starts teaching without
 developer consent.
 
 The planner removes duplicate concepts by canonical identity plus scope, merges
@@ -413,12 +413,12 @@ not a replacement for implementation evidence.
 ## 14. Repository structure
 
 ```text
-learn/
+codecall/
 ├── README.md
 ├── ARCHITECTURE.md
 ├── package.json
 ├── src/
-│   ├── public/                 # learn(), provider-neutral facade
+│   ├── public/                 # codecall(), provider-neutral facade
 │   ├── runtime/                # orchestrator, reducer, state machine, recovery
 │   ├── workers/                # one directory/module per worker
 │   ├── schemas/                # versioned runtime contracts and validators
@@ -532,7 +532,7 @@ Implementation must wait for decisions on the following unresolved product
 choices. The recommended defaults are intentionally visible rather than hidden:
 
 1. **Recommendation UX:** should agents show an automatic post-task recommendation
-   when score thresholds are met, or only surface `/learn` on manual invocation?
+   when score thresholds are met, or only surface `/codecall` on manual invocation?
    Recommendation: automatic, non-blocking card with Start/Skip.
 2. **Confidence UX:** should confidence be asked once per session or per learning
    unit? Recommendation: grouped per unit, with a “use a default” skip action.

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { mkdtempSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { learn } from "../src/public.js";
+import { codecall } from "../src/public.js";
 import { JsonlEventStore } from "../src/runtime/event-store.js";
 
 const implementation = {
@@ -10,9 +10,9 @@ const implementation = {
   changedFiles: [{ path: "src/routes.ts", summary: "Protect account routes with authentication middleware.", excerpt: "router.get('/account', authenticate, accountHandler)" }]
 };
 
-describe("learn runtime", () => {
+describe("codecall runtime", () => {
   it("recommends learning, then presents one grounded question at a time", async () => {
-    const runtime = learn(implementation);
+    const runtime = codecall(implementation);
     const session = await runtime.start(implementation);
     expect(session.state).toBe("waiting_for_decision");
     expect(session.opportunity?.recommendation).toBe("recommend");
@@ -25,7 +25,7 @@ describe("learn runtime", () => {
   });
 
   it("reinforces after an incorrect answer instead of advancing", async () => {
-    const runtime = learn(implementation);
+    const runtime = codecall(implementation);
     const session = await runtime.start(implementation);
     runtime.decide(session, true);
     await runtime.setConfidence(session, "never_learned");
@@ -39,7 +39,7 @@ describe("learn runtime", () => {
   });
 
   it("asks a mapping check and technical check before advancing a concept", async () => {
-    const runtime = learn(implementation);
+    const runtime = codecall(implementation);
     const session = await runtime.start(implementation);
     runtime.decide(session, true);
     await runtime.setConfidence(session, "comfortable");
@@ -54,7 +54,7 @@ describe("learn runtime", () => {
   });
 
   it("finishes with a bounded summary after the final correct check-in", async () => {
-    const runtime = learn(implementation);
+    const runtime = codecall(implementation);
     const session = await runtime.start(implementation);
     runtime.decide(session, true);
     await runtime.setConfidence(session, "comfortable");
@@ -67,7 +67,7 @@ describe("learn runtime", () => {
   });
 
   it("cancels without teaching when declined", async () => {
-    const runtime = learn(implementation);
+    const runtime = codecall(implementation);
     const session = await runtime.start(implementation);
     runtime.decide(session, false);
     expect(session.state).toBe("cancelled");
@@ -75,7 +75,7 @@ describe("learn runtime", () => {
   });
 
   it("suppresses a repeated concept cluster within one runtime session", async () => {
-    const runtime = learn(implementation);
+    const runtime = codecall(implementation);
     const first = await runtime.start(implementation);
     const second = await runtime.start(implementation);
 
@@ -85,7 +85,7 @@ describe("learn runtime", () => {
   });
 
   it("keeps event logs in a caller-selected JSONL file", () => {
-    const filePath = join(mkdtempSync(join(tmpdir(), "learn-events-")), "events.jsonl");
+    const filePath = join(mkdtempSync(join(tmpdir(), "codecall-events-")), "events.jsonl");
     const store = new JsonlEventStore(filePath);
     store.append({ id: "event-1", sessionId: "session-1", sequence: 1, type: "SESSION_STARTED", occurredAt: "2026-01-01T00:00:00.000Z", payload: {} });
 

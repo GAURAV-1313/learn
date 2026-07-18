@@ -82,7 +82,7 @@ export function evaluateLearningOpportunity(context) {
             moderateSignals: uniqueModerate,
             excludedChangeCategories: [...new Set(excludedChangeCategories)],
             conceptFingerprint,
-            reasoning: [reason, "Manual /learn or $learn remains available."]
+            reasoning: [reason, "Manual /codecall or $codecall remains available."]
         };
     }
     const recommendation = uniqueStrong.length >= 1 || uniqueModerate.length >= 2
@@ -117,7 +117,7 @@ export class SessionOpportunityDeduper {
                 recommendation: "skip",
                 estimatedMinutes: 0,
                 excludedChangeCategories: [...opportunity.excludedChangeCategories, "already_evaluated_in_session"],
-                reasoning: [`Skipped automatic learning because ${opportunity.conceptFingerprint} was already evaluated in this session.`, "Manual /learn or $learn remains available."]
+                reasoning: [`Skipped automatic learning because ${opportunity.conceptFingerprint} was already evaluated in this session.`, "Manual /codecall or $codecall remains available."]
             };
         }
         this.evaluatedFingerprints.add(opportunity.conceptFingerprint);

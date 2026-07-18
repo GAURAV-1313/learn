@@ -12,7 +12,7 @@ import {
  * Local demonstration runtime. The production experience is the agent-backed
  * Codex skill, which uses the active coding agent's reasoning directly.
  */
-export function learn(implementation: ImplementationLocator): LearnRuntime {
+export function codecall(implementation: ImplementationLocator): LearnRuntime {
   return new LearnRuntime({
     contextCollector: new DefaultContextCollector(contextFromImplementation(implementation)),
     opportunityDetector: new HeuristicOpportunityDetector(),
