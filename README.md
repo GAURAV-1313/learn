@@ -21,21 +21,24 @@ prerequisite-ready learning step.
 
 ## Install
 
-Install once from GitHub to add the same `codecall` skill to both your local Codex
+Install once from npm to add the same `codecall` skill to both your local Codex
 and Claude Code skills directories:
 
 ```bash
-npm install -g https://github.com/GAURAV-1313/codecall/archive/refs/heads/main.tar.gz
+npm install -g codecall
+codecall install
 ```
 
 Restart the relevant coding agent or open a new task so it reloads the installed
 skill. This package does not require an additional API key, and its install step
 does not upload your code.
 
-When the package is published to npm, the equivalent registry command will be:
+The current release is [`codecall@1.0.0`](https://www.npmjs.com/package/codecall).
+To update a previous global installation:
 
 ```bash
-npm install -g codecall
+npm update -g codecall
+codecall install
 ```
 
 ## Use it in Codex
