@@ -38,7 +38,7 @@
     }
   },
   "bin": {
-    "codecall": "./dist/cli.js"
+    "codecall": "dist/cli.js"
   },
   "scripts": {
     "build": "node scripts/clean.mjs && tsc -p tsconfig.json",
